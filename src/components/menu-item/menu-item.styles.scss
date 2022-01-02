@@ -1,6 +1,6 @@
 .menu-item{
     min-width: 30%;
-    height: 240px;
+    height: 300px;
     flex: 1 1 auto;
     display: flex;
     align-items: center;
@@ -22,7 +22,7 @@
     }
 
     &.large{
-        height: 300px;
+        height: 400px;
     }
 
     .background-image{
