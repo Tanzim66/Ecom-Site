@@ -1,13 +1,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable require-jsdoc */
 import React from 'react';
-
-// Pages
-import {Switch, Route} from 'react-router-dom';
-
-// Authentication with firebase
+import {Switch, Route, Redirect} from 'react-router-dom';
 import {auth, createUserProfileDocument} from './firebase/firebase.utils';
-
 import {connect} from 'react-redux';
 
 import './App.css';
@@ -58,12 +53,17 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={HomePage}/>
           <Route exact path='/shop' component={ShopPage}/>
-          <Route exact path='/signin' component={Auth}/>
+          <Route exact path='/signin' render={() =>
+          this.props.currentUser ? (<Redirect to='/'/>) : (<Auth/>)}/>
         </Switch>
       </div>
     );
   }
 }
+
+const mapStateToProps = ({user}) => ({
+  currentUser: user.currentUser,
+});
 
 // gives this class access to a function called setCurrentUser
 // that takes a user object and then creates a dispatch that notifies
@@ -73,4 +73,4 @@ const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
