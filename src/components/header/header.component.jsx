@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
+import {Link} from 'react-router-dom';
 
 import {ReactComponent as Logo} from '../../assets/crown.svg';
 
@@ -13,33 +13,33 @@ import {selectCurrentUser} from '../../redux/user/user.selectors';
 
 import {auth} from '../../firebase/firebase.utils';
 
-
-import './header.styles.scss';
+import {HeaderContainer, LogoContainer,
+  OptionsContainer, Option} from './header.styles';
 
 const Header = ({currentUser, hidden})=>{
   return (
-    <div className="header">
-      <Link className='logo-container' to="/">
+    <HeaderContainer>
+      <LogoContainer to="/">
         <Logo className="logo"/>
-      </Link>
-      <div className="options">
-        <Link className="option" to='/shop'>
+      </ LogoContainer>
+      <OptionsContainer>
+        <Option as={Link} to='/shop'>
             SHOP
-        </Link>
-        <Link className="option" to='/'>
+        </Option>
+        <Option as={Link} to='/'>
             CONTACT
-        </Link>
+        </Option>
         {
           // if the user exists (is logged in), change the button to signout
           // else change to signin to move user to signin page
           currentUser ?
-          <div className='option' onClick={() => auth.signOut()}>SIGN OUT</div>:
-          <Link className='option' to='/signin'>SIGN IN</Link>
+          <Option as='div' onClick={() => auth.signOut()}>SIGN OUT</Option>:
+          <Option as={Link} to='/signin'>SIGN IN</Option>
         }
         <CartIcon />
-      </div>
+      </OptionsContainer>
       {hidden ? null : <CartDropdown />}
-    </div>
+    </HeaderContainer>
   );
 };
 

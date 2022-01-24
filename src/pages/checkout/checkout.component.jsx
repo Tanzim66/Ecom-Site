@@ -9,40 +9,45 @@ import CheckoutItem
 import StripeCheckoutButton from
   '../../components/stripe-btn/stripe-btn.component';
 
-import './checkout.styles.scss';
+import {CheckoutPageContainer, CheckoutHeaderContainer,
+  CheckoutHeaderBlock, Total, TestWarning, StripeButtonContainer}
+  from './checkout.styles';
 
 const CheckoutPage = ({cartItems, total}) => {
   return (
-    <div className='checkout-page'>
-      <div className="checkout-header">
-        <div className="header-block">
+    <CheckoutPageContainer>
+      <CheckoutHeaderContainer>
+        <CheckoutHeaderBlock>
           <span>Product</span>
-        </div>
-        <div className="header-block">
+        </CheckoutHeaderBlock>
+        <CheckoutHeaderBlock>
           <span>Description</span>
-        </div>
-        <div className="header-block">
+        </CheckoutHeaderBlock>
+        <CheckoutHeaderBlock>
           <span>Quantity</span>
-        </div>
-        <div className="header-block">
+        </CheckoutHeaderBlock>
+        <CheckoutHeaderBlock>
           <span>Price</span>
-        </div>
-        <div className="header-block">
+        </CheckoutHeaderBlock>
+        <CheckoutHeaderBlock>
           <span>Remove</span>
-        </div>
-      </div>
+        </CheckoutHeaderBlock>
+      </CheckoutHeaderContainer>
       {
         cartItems.map((cartItem) => <CheckoutItem key={cartItem.id}
           cartItem={cartItem}></CheckoutItem>)
       }
-      <div className="total"><span>TOTAL: ${total}</span></div>
-      <div className="test-warning">
+      <Total><span>TOTAL: ${total}</span></Total>
+      <TestWarning>
         *Please use the following test credit card for payments*
         <br />
         4242 4242 4242 4242 - Exp: 01/22 - CVC: 123
-      </div>
-      {total > 0 ? <StripeCheckoutButton price={total}/> : null}
-    </div>
+      </TestWarning>
+      {total > 0 ?
+      <StripeButtonContainer>
+        <StripeCheckoutButton price={total}/>
+      </StripeButtonContainer> : null}
+    </CheckoutPageContainer>
   );
 };
 
