@@ -1,16 +1,16 @@
 import React from 'react';
 
-import './auth.styles.scss';
+import {AuthContainer} from './auth.styles';
 
 import SignIn from '../../components/sign-in/sign-in.component';
 import SignUp from '../../components/sign-up/sign-up.component';
 
 const Auth = ()=>{
   return (
-    <div className="auth">
+    <AuthContainer>
       <SignIn/>
       <SignUp />
-    </div>
+    </AuthContainer>
   );
 };
 
